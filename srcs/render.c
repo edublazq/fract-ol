@@ -1,29 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bamberger12 <marvin@42.fr>                 +#+  +:+       +#+        */
+/*   By: edblazqu <edblazqu@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/29 11:42:57 by bamberger12       #+#    #+#             */
-/*   Updated: 2025/10/29 11:42:58 by bamberger12      ###   ########.fr       */
+/*   Created: 2025/12/06 15:47:50 by edblazqu          #+#    #+#             */
+/*   Updated: 2025/12/06 15:47:50 by edblazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
-#include <stdio.h>
 
-int	main(int ac, char **av)
-{
-	t_mlx	mlx;
-	t_complex	c;
-	t_complex	z;
 
-	c = new_complex(1.47, 0.82);
-	int iterations = mandelbrot(c, 1000);
-	printf("%d", iterations);
-	start_mlx(&mlx);
-	main_hooks(&mlx);
-	mlx_loop(mlx.main);
-	return (0);
-}

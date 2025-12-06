@@ -27,18 +27,18 @@ t_complex	power_complex(t_complex z, int power)
 	return (result);
 }
 
-t_complex	mandelbrot(t_complex constant, size_t max_iter)
+int	mandelbrot(t_complex constant, size_t max_iter)
 {
 	t_complex	z;
-	size_t	i;
+	size_t		i;
 
 	z = new_complex(0, 0);
 	i = 0;
-	while (i < max_iter)
+	while (i < max_iter && complex_mod(z) < 4.0)
 	{
 
 		z = add_complex(power_complex(z, 2), constant);
 		i++;
 	}
-	return (z);
+	return ((int)i);
 }
