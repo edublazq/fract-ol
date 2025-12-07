@@ -17,6 +17,7 @@ int	close_win(int keycode, t_mlx *mlx)
 	if (keycode == KEY_ESC)
 	{
 		mlx_loop_end(mlx->main);
+		mlx_destroy_image(mlx->main, mlx->img);
 		mlx_destroy_window(mlx->main ,mlx->win);
 		mlx_destroy_display(mlx->main);
 		free(mlx->main);
@@ -26,12 +27,12 @@ int	close_win(int keycode, t_mlx *mlx)
 
 int	second_close(t_mlx *mlx)
 {
-		mlx_loop_end(mlx->main);
-		mlx_destroy_window(mlx->main ,mlx->win);
-		mlx_destroy_image(mlx, mlx->img);
-		mlx_destroy_display(mlx->main);
-		free(mlx->main);
-		exit(0);
+	mlx_loop_end(mlx->main);
+	mlx_destroy_image(mlx->main, mlx->img);
+	mlx_destroy_window(mlx->main ,mlx->win);
+	mlx_destroy_display(mlx->main);
+	free(mlx->main);
+	exit(0);
 }
 
 void	main_hooks(t_mlx *mlx)
@@ -43,9 +44,13 @@ void	main_hooks(t_mlx *mlx)
 void	start_mlx(t_mlx *mlx)
 {
 	mlx->main = mlx_init();
-	mlx->win = mlx_new_window(mlx->main, 800, 600, "Fract_ol");
-	mlx->img = mlx_new_image(mlx->main, 800, 600);
+	mlx->max_iter = 200;
+	mlx->win = mlx_new_window(mlx->main, WIDTH, HEIGHT, "Fract_ol");
+	mlx->img = mlx_new_image(mlx->main, WIDTH, HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &(mlx->bpp), 
-		&(mlx->size_line), &(mlx->endian));
-	printf("MLX->BPP %d MLX->SIZE_LINE %d MLX->ENDIAN %d", mlx->bpp, mlx->size_line, mlx->endian);
+		&(mlx->line_len), &(mlx->endian));
+	mlx->v.max.re = 1.0;
+	mlx->v.max.im = 1.5;
+	mlx->v.min.re = -2.0;
+	mlx->v.min.im = -1.5;
 }

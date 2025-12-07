@@ -18,12 +18,16 @@ int	main(int ac, char **av)
 	t_mlx	mlx;
 	t_complex	c;
 	t_complex	z;
+	t_view		v;
 
-	c = new_complex(1.47, 0.82);
-	int iterations = mandelbrot(c, 1000);
-	printf("%d", iterations);
+	if (ac != 2)
+	{
+		ft_putstr_fd("Usage: ./fractol mandelbrot/julia", 2);
+		return (1);
+	}
 	start_mlx(&mlx);
 	main_hooks(&mlx);
+	draw_julia(&mlx, &(mlx.v));
 	mlx_loop(mlx.main);
 	return (0);
 }
