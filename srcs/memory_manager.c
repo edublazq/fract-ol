@@ -18,3 +18,9 @@ void	*freedom(t_mlx	*mlx)
 	mlx = NULL;
 	return (mlx);
 }
+
+void	pls_exit(void)
+{
+	ft_putstr_fd("Usage: ./fractol mandelbrot/julia (julia: const1 const2)", 2);
+	exit(1);
+}

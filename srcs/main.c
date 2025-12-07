@@ -11,23 +11,31 @@
 /* ************************************************************************** */
 
 #include "../inc/fractol.h"
-#include <stdio.h>
 
 int	main(int ac, char **av)
 {
 	t_mlx	mlx;
-	t_complex	c;
-	t_complex	z;
-	t_view		v;
 
-	if (ac != 2)
+	if (ac < 2 || (ft_strncmp(av[1], "mandelbrot", 11)
+			&& ft_strncmp(av[1], "julia", 5)))
+		pls_exit();
+	if (ft_strncmp(av[1], "julia", 5) == 0)
 	{
-		ft_putstr_fd("Usage: ./fractol mandelbrot/julia", 2);
-		return (1);
+		mlx.fractal_type = JULIA;
+		if (ac != 4)
+			pls_exit();
+		mlx.c.re = ft_atof(av[2]);
+		mlx.c.im = ft_atof(av[3]);
+		if (!mlx.c.re || !mlx.c.im)
+			pls_exit();
 	}
+	else if (ac == 2)
+		mlx.fractal_type = MANDELBROT;
+	else
+		pls_exit();
 	start_mlx(&mlx);
 	main_hooks(&mlx);
-	draw_julia(&mlx, &(mlx.v));
+	draw_it(&mlx, &(mlx.v), mlx.fractal_type);
 	mlx_loop(mlx.main);
 	return (0);
 }

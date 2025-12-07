@@ -12,7 +12,7 @@
 
 #include "../inc/fractol.h"
 
-int		create_color(int function)
+int	create_color(int function)
 {
 	int	color;
 	int	r;
@@ -31,17 +31,25 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	char	*dst;
 
 	if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
-        return;
+		return ;
 	dst = mlx->addr + (y * mlx->line_len + x * (mlx->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
-t_complex	map_pxl_to_complex(int x, int y, t_view *v)
+t_complex	scale_complex(t_view *v)
 {
 	t_complex	result;
 
-    result.re = v->min.re + (double)x / (WIDTH - 1) * (v->max.re - v->min.re);
-    result.im = v->max.im - (double)y / (HEIGHT - 1) * (v->max.im - v->min.im);
+	result.re = (v->max.re - v->min.re) / WIDTH;
+	result.im = (v->max.im - v->min.im) / HEIGHT;
 	return (result);
 }
 
+t_complex	map_pxl(int x, int y, t_complex scale, t_view v)
+{
+	t_complex	c;
+
+	c.re = v.min.re + x * scale.re;
+	c.im = v.min.im + y * scale.im;
+	return (c);
+}
